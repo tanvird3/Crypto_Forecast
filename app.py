@@ -162,7 +162,7 @@ def CryptoForecast(n_clicks, SelectCrypto):
     fig_forecast.add_trace(go.Scatter(x = plot_data["Date"], y=plot_data["yhat_upper"], mode='markers', name = "Upper Band"))
     
     
-    return fig
+    return fig_forecast
 
 
 # launch the app
