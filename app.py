@@ -141,9 +141,9 @@ def CryptoForecast(n_clicks, SelectCrypto):
     model = Prophet()
     model.fit(cryp_pro)
     future = model.make_future_dataframe(periods=60)
-    forecast = m.predict(future)
+    forecast = model.predict(future)
     forecast = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
-    forecast = forecast.remane(columns = {"ds":"Date"})
+    forecast = forecast.rename(columns = {"ds":"Date"})
     
     plot_data = forecast.merge(crypto, on = "Date", how = "outer")
     
