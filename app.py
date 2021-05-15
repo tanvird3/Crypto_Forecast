@@ -85,7 +85,8 @@ app.layout = html.Div(
                     n_clicks=0,
                     children="Forecast",
                     style={
-                        "fontSize": 20,
+                        "fontSize": 15,
+                        "height": 30,
                         "verticalAlign": "middle",
                         "color": colors[
                             "text"
