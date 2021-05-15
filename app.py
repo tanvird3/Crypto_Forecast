@@ -79,6 +79,7 @@ app.layout = html.Div(
         # the submit button
         html.Div(
             [
+                html.H3("", style={"paddingRight": "30px", "paddingBottom": "20px"}),
                 html.Button(
                     id="submit-button",
                     n_clicks=0,
@@ -94,7 +95,7 @@ app.layout = html.Div(
             ],
             style={
                 "display": "inline-block",
-                "verticalAlign": "bottom",
+                "verticalAlign": "middle",
                 "width": 90,
                 # "height": 20,
                 "paddingLeft": "7px",
