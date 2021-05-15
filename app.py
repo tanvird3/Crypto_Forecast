@@ -7,6 +7,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 from datetime import datetime
 import plotly.express as px
+import plotly.graph_objs as go
 import pandas_datareader as pdr
 from prophet import Prophet
 
