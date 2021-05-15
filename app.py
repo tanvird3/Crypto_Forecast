@@ -79,7 +79,7 @@ app.layout = html.Div(
         # the submit button
         html.Div(
             [
-                html.H3("", style={"paddingRight": "30px", "paddingBottom": "30px"}),
+                html.H3("", style={"paddingRight": "30px", "paddingBottom": "25px"}),
                 html.Button(
                     id="submit-button",
                     n_clicks=0,
