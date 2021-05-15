@@ -136,7 +136,7 @@ def CryptoForecast(n_clicks, SelectCrypto):
     cryptodata.columns = cryptodata.columns.get_level_values(0)
     
     cryp_pro = cryptodata[["Date", "Close"]]
-    cry_pro = cryp_pro.rename(columns = {"Date":"ds", "Close":"y"})
+    cryp_pro = cryp_pro.rename(columns = {"Date":"ds", "Close":"y"})
     
     model = Prophet()
     model.fit(cryp_pro)
