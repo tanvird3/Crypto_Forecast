@@ -97,8 +97,6 @@ app.layout = html.Div(
             style={
                 "display": "inline-block",
                 "verticalAlign": "middle",
-                "width": 90,
-                # "height": 20,
                 "paddingLeft": "7px",
                 "paddingBottom": "20px",  
             },		# this style controls the entire submit button position etc.
@@ -179,19 +177,19 @@ def CryptoForecast(n_clicks, SelectCrypto):
     fig_forecast.add_trace(
         go.Scatter(
             x=plot_data["Date"],
-            y=plot_data["yhat_lower"],
+            y=plot_data["yhat_upper"],
             mode="lines",
             line=dict(dash="dot"),
-            name="Lower Band",
+            name="Upper Band",
         )
     )
     fig_forecast.add_trace(
         go.Scatter(
             x=plot_data["Date"],
-            y=plot_data["yhat_upper"],
+            y=plot_data["yhat_lower"],
             mode="lines",
             line=dict(dash="dot"),
-            name="Upper Band",
+            name="Lower Band",
         )
     )
 
