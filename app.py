@@ -107,14 +107,10 @@ app.layout = html.Div(
         dcc.Graph(id="forecast", style={"color": colors["text"]}),
     ],
     style={
-        # "display": "inline-block",
         "backgroundColor": colors["background"],
         "color": colors["text"],
-        # "horizontalAlign": "middle",
         "width": "100%",
-        "height": "100%",
-        "align-items": "center",
-        # "justify-content": "center",  
+        "height": "100%",  
     },			# this style controls the entire app
 )
 
