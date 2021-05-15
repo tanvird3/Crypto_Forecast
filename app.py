@@ -15,11 +15,12 @@ from prophet import Prophet
 app = dash.Dash()
 server = app.server
 
+# get the cryptocurrency list
 crypcode = pd.read_csv("crypcode.csv")
 cryp_value = crypcode["currency code"].tolist()
 cryp_label = crypcode["currency name"].tolist()
-# crypcode.head()
 
+# set date for importing data
 todate = datetime.today().strftime("%Y-%m-%d")
 firstdate = pd.to_datetime(todate, format="%Y-%m-%d") - pd.to_timedelta(
     365 , unit="d"
@@ -43,14 +44,15 @@ app.layout = html.Div(
                 "verticalAlign": "bottom",
             },
         ),
-        html.H2(
-            "Forecast Commonly Traded Cryptocurrencies with Facebook's Prophet Procedure",
-            style={
-                "textAlign": "center",
-                "paddingTop": "5px",
-                "verticalAlign": "middle",
-            },
-        ),
+        #         html.H2(
+        #             "Forecast Commonly Traded Cryptocurrencies with Facebook's Prophet Procedure",
+        #             style={
+        #                 "textAlign": "center",
+        #                 "paddingTop": "5px",
+        #                 "verticalAlign": "middle",
+        #             },
+        #         ),
+        
         # the from crypto dropdown
         html.Div(
             [
@@ -67,12 +69,12 @@ app.layout = html.Div(
                     },  # this style controls the text inside the dropdown
                 ),
             ],
-            style={  # this style controls the layout of the dropdown box
+            style={  
                 "display": "inline-block",
-                "verticalAlign": "middle",
+                "verticalAlign": "top",
                 "paddingLeft": "20px",
                 "paddingBottom": "20px",
-            },
+            }, 		# this style controls the layout of the dropdown box
         ),
         # the submit button
         html.Div(
@@ -86,8 +88,8 @@ app.layout = html.Div(
                         "verticalAlign": "middle",
                         "color": colors[
                             "text"
-                        ],  # this style controls the text inside the submit button
-                    },
+                        ],  
+                    },	# this style controls the text inside the submit button
                 )
             ],
             style={
@@ -96,9 +98,10 @@ app.layout = html.Div(
                 "width": 90,
                 # "height": 20,
                 "paddingLeft": "7px",
-                "paddingBottom": "20px",  # this style controls the entire submit button position etc.
-            },
+                "paddingBottom": "20px",  
+            },		# this style controls the entire submit button position etc.
         ),
+
         # the graphs
         dcc.Graph(id="forecast", style={"color": colors["text"]}),
     ],
@@ -110,8 +113,8 @@ app.layout = html.Div(
         "width": "100%",
         "height": "100%",
         "align-items": "center",
-        # "justify-content": "center",  # this style controls the entire app
-    },
+        # "justify-content": "center",  
+    },			# this style controls the entire app
 )
 
 # app functions
@@ -131,6 +134,8 @@ app.layout = html.Div(
 
 # start the function
 def CryptoForecast(n_clicks, SelectCrypto):
+
+   # get the data
     cryptodata = pdr.get_data_yahoo(
         [SelectCrypto + "-" + "USD"], start=firstdate, end=todate
     ).reset_index()
@@ -139,17 +144,22 @@ def CryptoForecast(n_clicks, SelectCrypto):
     cryp_pro = cryptodata[["Date", "Close"]]
     cryp_pro = cryp_pro.rename(columns={"Date": "ds", "Close": "y"})
 
+    # Fit the Model
     model = Prophet()
     model.fit(cryp_pro)
+
+    # make the prediction
     future = model.make_future_dataframe(periods=60)
     forecast = model.predict(future)
+
+    # prepare data for plotting 
     forecast = forecast[["ds", "yhat", "yhat_lower", "yhat_upper"]]
     forecast = forecast.rename(columns={"ds": "Date"})
-
     plot_data = cryptodata.merge(forecast, on="Date", how="outer")
     plot_data["Volume"] = plot_data["Volume"].replace(np.nan, 0)
-    plot_data = plot_data.iloc[-100:,:]
+    plot_data = plot_data.iloc[-150:,:]
 
+    # make the plot
     fig_forecast = px.scatter(
         plot_data,
         x="Date",
