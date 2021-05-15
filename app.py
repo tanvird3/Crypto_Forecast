@@ -21,7 +21,7 @@ cryp_label = crypcode["currency name"].tolist()
 
 todate = datetime.today().strftime("%Y-%m-%d")
 firstdate = pd.to_datetime(todate, format="%Y-%m-%d") - pd.to_timedelta(
-    365 / 4, unit="d"
+    365 , unit="d"
 )
 
 # read more about inline-block & flex
@@ -134,36 +134,59 @@ def CryptoForecast(n_clicks, SelectCrypto):
         [SelectCrypto + "-" + "USD"], start=firstdate, end=todate
     ).reset_index()
     cryptodata.columns = cryptodata.columns.get_level_values(0)
-    
+
     cryp_pro = cryptodata[["Date", "Close"]]
-    cryp_pro = cryp_pro.rename(columns = {"Date":"ds", "Close":"y"})
-    
+    cryp_pro = cryp_pro.rename(columns={"Date": "ds", "Close": "y"})
+
     model = Prophet()
     model.fit(cryp_pro)
     future = model.make_future_dataframe(periods=60)
     forecast = model.predict(future)
-    forecast = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
-    forecast = forecast.rename(columns = {"ds":"Date"})
-    
-    plot_data = forecast.merge(crypto, on = "Date", how = "outer")
-    
+    forecast = forecast[["ds", "yhat", "yhat_lower", "yhat_upper"]]
+    forecast = forecast.rename(columns={"ds": "Date"})
+
+    plot_data = cryptodata.merge(forecast, on="Date", how="outer")
+    plot_data["Volume"] = plot_data["Volume"].replace(np.nan, 0)
+    plot_data = plot_data.iloc[-100:,:]
+
     fig_forecast = px.scatter(
         plot_data,
-        x="Date", 
+        x="Date",
         y="Close",
         size="Volume",
         title=SelectCrypto,
         labels={"Date": "Date", "Close": "Closing Price"},
         template="plotly_dark",
     ).update_traces(mode="lines+markers", marker=dict(color="green", opacity=0.4))
-    
-    fig_forecast.add_trace(go.Scatter(x = plot_data["Date"], y=plot_data["yhat"], mode='lines', name = "Predicted Price"))
-    fig_forecast.add_trace(go.Scatter(x = plot_data["Date"], y=plot_data["yhat_lower"], mode='markers', name = "Lower Band"))
-    fig_forecast.add_trace(go.Scatter(x = plot_data["Date"], y=plot_data["yhat_upper"], mode='markers', name = "Upper Band"))
-    
-    
-    return fig_forecast
 
+    fig_forecast.add_trace(
+        go.Scatter(
+            x=plot_data["Date"],
+            y=plot_data["yhat"],
+            mode="lines",
+            name="Predicted Price",
+        )
+    )
+    fig_forecast.add_trace(
+        go.Scatter(
+            x=plot_data["Date"],
+            y=plot_data["yhat_lower"],
+            mode="lines",
+            line=dict(dash="dot"),
+            name="Lower Band",
+        )
+    )
+    fig_forecast.add_trace(
+        go.Scatter(
+            x=plot_data["Date"],
+            y=plot_data["yhat_upper"],
+            mode="lines",
+            line=dict(dash="dot"),
+            name="Upper Band",
+        )
+    )
+
+    return fig_forecast
 
 # launch the app
 if __name__ == "__main__":
