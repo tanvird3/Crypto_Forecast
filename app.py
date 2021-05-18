@@ -12,7 +12,7 @@ import pandas_datareader as pdr
 from prophet import Prophet
 
 # initiate the app
-app = dash.Dash()
+app = dash.Dash(__name__)
 server = app.server
 
 # get the cryptocurrency list
