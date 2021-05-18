@@ -40,8 +40,8 @@ app.layout = html.Div(
             "Crypto Forecast",
             style={
                 "textAlign": "center",
-                "paddingTop": "30px",
-                "verticalAlign": "bottom",
+                "verticalAlign": "middle",
+                "paddingTop": "15px",
             },
         ),
         #         html.H2(
@@ -52,56 +52,83 @@ app.layout = html.Div(
         #                 "verticalAlign": "middle",
         #             },
         #         ),
-        
         # the from crypto dropdown
         html.Div(
             [
-                html.H3("Select Crypto", style={"paddingRight": "30px"}),
-                dcc.Dropdown(
-                    id="SelectCrypto",
-                    options=[{"label": i, "value": i} for i in cryp_value],
-                    value="BTC",
-                    clearable=False,
+                html.H3(
+                    "",
                     style={
-                        "fontsize": 24,
-                        "width": 90,
-                        "color": colors["text"],
-                    },  # this style controls the text inside the dropdown
+                        "textAlign": "center",
+                        "width": "60px",
+                    },
+                ),
+                html.Div(
+                    style={
+                        "verticalAlign": "middle",
+                        "paddingBottom": "20px",
+                        "width": "60px",
+                    },
+                ),
+                html.Div(
+                    [
+                        html.H3(
+                            "Select Crypto",
+                            style={
+                                "textAlign": "center",
+                                "width": "110px",
+                            },
+                        ),
+                        dcc.Dropdown(
+                            id="SelectCrypto",
+                            options=[{"label": i, "value": i} for i in cryp_value],
+                            value="BTC",
+                            clearable=False,
+                            style={
+                                "fontsize": 24,
+                                "color": colors["text"],
+                                "width": "110px",
+                            },  # this style controls the text inside the dropdown
+                        ),
+                    ],
+                    style={  # this style controls the layout of the dropdown box
+                        "verticalAlign": "middle",
+                        "paddingRight": "25px",
+                        "paddingBottom": "20px",
+                    },
+                ),
+                # the submit button
+                html.Div(
+                    [
+                        html.H3(
+                            "",
+                            style={
+                                "paddingBottom": "25px",
+                                "width": "80px",
+                            },
+                        ),
+                        html.Button(
+                            id="submit-button",
+                            n_clicks=0,
+                            children="Forecast",
+                            style={
+                                "fontSize": 15,
+                                "height": 30,
+                                "verticalAlign": "middle",
+                                "width": "80px",
+                                "color": colors[
+                                    "text"
+                                ],  # this style controls the text inside the submit button
+                            },
+                        ),
+                    ],
+                    style={
+                        "verticalAlign": "middle",
+                        "paddingBottom": "20px",  # this style controls the entire submit button position etc.
+                    },
                 ),
             ],
-            style={  
-                "display": "inline-block",
-                "verticalAlign": "top",
-                "paddingLeft": "20px",
-                "paddingBottom": "20px",
-            }, 		# this style controls the layout of the dropdown box
+            style={"display": "flex", "justify-content": "center"},
         ),
-        # the submit button
-        html.Div(
-            [
-                html.H3("", style={"paddingRight": "30px", "paddingBottom": "25px"}),
-                html.Button(
-                    id="submit-button",
-                    n_clicks=0,
-                    children="Forecast",
-                    style={
-                        "fontSize": 15,
-                        "height": 30,
-                        "verticalAlign": "middle",
-                        "color": colors[
-                            "text"
-                        ],  
-                    },	# this style controls the text inside the submit button
-                )
-            ],
-            style={
-                "display": "inline-block",
-                "verticalAlign": "middle",
-                "paddingLeft": "7px",
-                "paddingBottom": "20px",  
-            },		# this style controls the entire submit button position etc.
-        ),
-
         # the graphs
         dcc.Graph(id="forecast", style={"color": colors["text"]}),
     ],
@@ -109,8 +136,8 @@ app.layout = html.Div(
         "backgroundColor": colors["background"],
         "color": colors["text"],
         "width": "100%",
-        "height": "100%",  
-    },			# this style controls the entire app
+        "height": "100%",
+    },  # this style controls the entire app
 )
 
 # app functions
