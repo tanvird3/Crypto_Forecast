@@ -36,7 +36,7 @@ colors = {"background": "#222A2A", "text": "#479B55", "box": "#7F7F7F"}
 
 app.layout = html.Div(
     children=[
-        html.H1(
+        html.H3(
             "Crypto Forecast",
             style={
                 "textAlign": "center",
@@ -44,38 +44,14 @@ app.layout = html.Div(
                 "paddingTop": "15px",
             },
         ),
-        #         html.H2(
-        #             "Forecast Commonly Traded Cryptocurrencies with Facebook's Prophet Procedure",
-        #             style={
-        #                 "textAlign": "center",
-        #                 "paddingTop": "5px",
-        #                 "verticalAlign": "middle",
-        #             },
-        #         ),
-        # the from crypto dropdown
         html.Div(
             [
-                html.H3(
-                    "",
-                    style={
-                        "textAlign": "center",
-                        "width": "60px",
-                    },
-                ),
-                html.Div(
-                    style={
-                        "verticalAlign": "middle",
-                        "paddingBottom": "20px",
-                        "width": "60px",
-                    },
-                ),
                 html.Div(
                     [
-                        html.H3(
+                        html.H6(
                             "Select Crypto",
                             style={
                                 "textAlign": "center",
-                                "width": "110px",
                             },
                         ),
                         dcc.Dropdown(
@@ -86,44 +62,12 @@ app.layout = html.Div(
                             style={
                                 "fontsize": 24,
                                 "color": colors["text"],
-                                "width": "110px",
                             },  # this style controls the text inside the dropdown
                         ),
                     ],
                     style={  # this style controls the layout of the dropdown box
                         "verticalAlign": "middle",
-                        "paddingRight": "25px",
-                        "paddingBottom": "20px",
-                    },
-                ),
-                # the submit button
-                html.Div(
-                    [
-                        html.H3(
-                            "",
-                            style={
-                                "paddingBottom": "25px",
-                                "width": "80px",
-                            },
-                        ),
-                        html.Button(
-                            id="submit-button",
-                            n_clicks=0,
-                            children="Forecast",
-                            style={
-                                "fontSize": 15,
-                                "height": 30,
-                                "verticalAlign": "middle",
-                                "width": "80px",
-                                "color": colors[
-                                    "text"
-                                ],  # this style controls the text inside the submit button
-                            },
-                        ),
-                    ],
-                    style={
-                        "verticalAlign": "middle",
-                        "paddingBottom": "20px",  # this style controls the entire submit button position etc.
+                        "paddingBottom": "15px",
                     },
                 ),
             ],
@@ -140,23 +84,15 @@ app.layout = html.Div(
     },  # this style controls the entire app
 )
 
+
 # app functions
 @app.callback(
     Output(component_id="forecast", component_property="figure"),
-    #         Output(component_id="Coef_Value", component_property="figure"),
-    #         Output(component_id="Model_Evaluation", component_property="figure"),
-    [Input("submit-button", "n_clicks")],
-    [
-        State("SelectCrypto", "value"),
-        #         State("amount", "value"),
-        #         State("isFlaggedSite", "value"),
-        #         State("isUnrecognizedDevice", "value"),
-        #         State("isOutsideLocation", "value"),
-    ],
+    [Input(component_id="SelectCrypto", component_property="value")],
 )
 
 # start the function
-def CryptoForecast(n_clicks, SelectCrypto):
+def CryptoForecast(SelectCrypto):
 
    # get the data
     cryptodata = pdr.get_data_yahoo(
