@@ -127,6 +127,7 @@ def CryptoForecast(SelectCrypto):
         title=SelectCrypto,
         labels={"Date": "Date", "Close": "Closing Price"},
         template="plotly_dark",
+        height = 510, 
     ).update_traces(mode="lines+markers", marker=dict(color="green", opacity=0.4))
 
     fig_forecast.add_trace(
