@@ -12,7 +12,10 @@ import pandas_datareader as pdr
 from prophet import Prophet
 
 # initiate the app
-app = dash.Dash(__name__)
+app = dash.Dash(
+    __name__,
+    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
+)
 server = app.server
 
 # get the cryptocurrency list
@@ -127,7 +130,7 @@ def CryptoForecast(SelectCrypto):
         title=SelectCrypto,
         labels={"Date": "Date", "Close": "Closing Price"},
         template="plotly_dark",
-        height = 510, 
+        height = 520, 
     ).update_traces(mode="lines+markers", marker=dict(color="green", opacity=0.4))
 
     fig_forecast.add_trace(
