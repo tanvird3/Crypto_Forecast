@@ -35,7 +35,7 @@ firstdate = pd.to_datetime(todate, format="%Y-%m-%d") - pd.to_timedelta(
 # https://stackoverflow.com/questions/35620419/what-is-difference-between-css-margin-and-padding
 
 # format the app
-colors = {"background": "#222A2A", "text": "#479B55", "box": "#7F7F7F"}
+colors = {"background": "#0B1C18", "text": "#479B55", "box": "#7F7F7F"}
 
 app.layout = html.Div(
     children=[
