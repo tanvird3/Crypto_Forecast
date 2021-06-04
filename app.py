@@ -162,7 +162,7 @@ def CryptoForecast(SelectCrypto):
 
     fig_forecast.update_layout(legend=dict(orientation="h", x=1.02, y=1.02, xanchor="right", yanchor="bottom"))
 
-   return fig_forecast
+    return fig_forecast
 
 # launch the app
 if __name__ == "__main__":
