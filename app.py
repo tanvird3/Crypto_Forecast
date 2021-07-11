@@ -29,6 +29,7 @@ todate = datetime.today().strftime("%d-%m-%Y")
 firstdate = pd.to_datetime(todate, format="%d-%m-%Y") - pd.to_timedelta(
     365 , unit="d"
 )
+firstdate = firstdate.strftime("%d-%m-%Y")
 
 # read more about inline-block & flex
 # https://www.geeksforgeeks.org/what-is-the-difference-between-inline-flex-and-inline-block-in-css/
