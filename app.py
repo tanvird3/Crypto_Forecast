@@ -104,7 +104,7 @@ def CryptoForecast(SelectCrypto):
 #     ).reset_index()
 #     cryptodata.columns = cryptodata.columns.get_level_values(0)
 
-    scraper = CmcScraper("BTC", "15-01-2021", "11-07-2021")
+    scraper = CmcScraper(SelectCrypto, "15-01-2021", "11-07-2021")
     cryptodata = scraper.get_dataframe()
 
     cryp_pro = cryptodata[["Date", "Close"]]
