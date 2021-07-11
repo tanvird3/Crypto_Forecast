@@ -123,7 +123,7 @@ def CryptoForecast(SelectCrypto):
     forecast = forecast.rename(columns={"ds": "Date"})
     plot_data = cryptodata.merge(forecast, on="Date", how="outer").sort_values(by="Date", ascending=False)
     plot_data["Volume"] = plot_data["Volume"].replace(np.nan, 0)
-    plot_data = plot_data.iloc[-150:,:]
+    plot_data = plot_data.iloc[0:150,:]
 
     # make the plot
     fig_forecast = px.scatter(
