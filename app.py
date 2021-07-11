@@ -25,8 +25,8 @@ cryp_value = crypcode["currency code"].tolist()
 cryp_label = crypcode["currency name"].tolist()
 
 # set date for importing data
-todate = datetime.today().strftime("%Y-%m-%d")
-firstdate = pd.to_datetime(todate, format="%Y-%m-%d") - pd.to_timedelta(
+todate = datetime.today().strftime("%d-%m-%Y")
+firstdate = pd.to_datetime(todate, format="%d-%m-%Y") - pd.to_timedelta(
     365 , unit="d"
 )
 
@@ -104,7 +104,7 @@ def CryptoForecast(SelectCrypto):
 #     ).reset_index()
 #     cryptodata.columns = cryptodata.columns.get_level_values(0)
 
-    scraper = CmcScraper(SelectCrypto, "15-01-2021", "11-07-2021")
+    scraper = CmcScraper(SelectCrypto, firstdate, todate)
     cryptodata = scraper.get_dataframe()
 
     cryp_pro = cryptodata[["Date", "Close"]]
