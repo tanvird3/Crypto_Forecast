@@ -8,7 +8,8 @@ from dash.dependencies import Input, Output, State
 from datetime import datetime
 import plotly.express as px
 import plotly.graph_objs as go
-import pandas_datareader as pdr
+from cryptocmd import CmcScraper
+#import pandas_datareader as pdr
 from prophet import Prophet
 
 # initiate the app
@@ -98,10 +99,13 @@ app.layout = html.Div(
 def CryptoForecast(SelectCrypto):
 
    # get the data
-    cryptodata = pdr.get_data_yahoo(
-        [SelectCrypto + "-" + "USD"], start=firstdate, end=todate
-    ).reset_index()
-    cryptodata.columns = cryptodata.columns.get_level_values(0)
+#     cryptodata = pdr.get_data_yahoo(
+#         [SelectCrypto + "-" + "USD"], start=firstdate, end=todate
+#     ).reset_index()
+#     cryptodata.columns = cryptodata.columns.get_level_values(0)
+
+    scraper = CmcScraper("BTC", "15-01-2021", "11-07-2021")
+    cryptodata = scraper.get_dataframe()
 
     cryp_pro = cryptodata[["Date", "Close"]]
     cryp_pro = cryp_pro.rename(columns={"Date": "ds", "Close": "y"})
