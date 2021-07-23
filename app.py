@@ -133,11 +133,10 @@ def CryptoForecast(SelectCrypto):
         y="Close",
         size="Volume",
         title=SelectCrypto,
-	name = "Price in USD", 
         labels={"Date": "Date", "Close": "Closing Price"},
         template="plotly_dark",
         #height = 500, 
-    ).update_traces(mode="lines+markers", marker=dict(color="green", opacity=0.4))
+    ).update_traces(name = "Price in USD", mode="lines+markers", marker=dict(color="green", opacity=0.4))
 
     fig_forecast.add_trace(
         go.Scatter(
