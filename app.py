@@ -133,6 +133,7 @@ def CryptoForecast(SelectCrypto):
         y="Close",
         size="Volume",
         title=SelectCrypto,
+	name = "Price in USD", 
         labels={"Date": "Date", "Close": "Closing Price"},
         template="plotly_dark",
         #height = 500, 
@@ -151,7 +152,7 @@ def CryptoForecast(SelectCrypto):
             x=plot_data["Date"],
             y=plot_data["yhat_upper"],
             mode="lines",
-            line=dict(dash="dot"),
+            line=dict(dash="dot", color="1F77B4"),
             name="Upper Band",
         )
     )
